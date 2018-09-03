@@ -2,7 +2,7 @@
 用spring boot开发的web博客系统
 # 概述
 
-- 首先要感谢两位大神，该项目的想法来源自[tale](https://github.com/otale/tale)和[MyBlog](https://github.com/JayTange/My-Blog)，本项目的想法。
+- 首先要感谢几位大神，该项目的想法来源自[tale](https://github.com/otale/tale)、[MyBlog](https://github.com/JayTange/My-Blog)[Jantent](https://github.com/JayTange/Jantent)，本项目的想法。
 
 - 做了一些改造，增加了一些功能和一些代码的重构，并且更换了博客主题。
 
