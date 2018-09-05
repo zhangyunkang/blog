@@ -70,6 +70,11 @@
                        th:class="${active}=='home'?'waves-effect active':'waves-effect'"><i
                             class="fa fa-dashboard" aria-hidden="true"></i><span> 仪表盘 </span></a>
                 </li>
+                <li th:class="${active}=='home'?'active':''">
+                    <a th:href="@{/admin/pooruser}"
+                       th:class="${active}=='pooruser'?'waves-effect active':'waves-effect'"><i
+                            class="fa fa-user" aria-hidden="true"></i><span> 贫困户管理 </span></a>
+                </li>
                 <li th:class="${active}=='publish'?'active':''">
                     <a th:href="@{/admin/article/publish}"
                        th:class="${active}=='publish'?'waves-effect active':'waves-effect'"><i

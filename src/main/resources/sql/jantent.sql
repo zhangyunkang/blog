@@ -129,7 +129,26 @@ CREATE TABLE `t_users` (
   UNIQUE KEY `name` (`username`),
   UNIQUE KEY `mail` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+DROP TABLE IF EXISTS `t_poorusers`;
+CREATE TABLE `t_poorusers` (
+  `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(32) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `mobile_phone` varchar(200) DEFAULT NULL,
+  `id_number` varchar(200) DEFAULT NULL,
+  `age` varchar(32) DEFAULT NULL,
+  `status` varchar(16) DEFAULT 'publish' ,
+  `type` varchar(16) DEFAULT 'post'  ,
+  `created` int(10) unsigned DEFAULT '0' ,
+  `poor_reason` varchar(200) DEFAULT NULL,
+  `enjoy_policy` text COMMENT '内容文字',
+  `info_image` varchar(512),
+  `outpoor_date` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`uid`),
+  UNIQUE KEY `name` (`username`),
+/*  UNIQUE KEY `phone` (`mobile_phone`),*/
+  UNIQUE KEY `mail` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `t_users` (`uid`, `username`, `password`, `email`, `home_url`, `screen_name`, `created`, `activated`, `logged`, `group_name`)
 VALUES
 	(1, 'admin', 'a66abb5684c45962d887564f08346e8d', 'jantent@qq.com', NULL, 'admin', 1490756162, 0, 0, 'visitor');

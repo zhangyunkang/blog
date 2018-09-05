@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='保存贫困户',active='pooruser'">
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
+<link th:href="@{/admin/plugins/tagsinput/jquery.tagsinput.css}" rel="stylesheet"/>
+<link th:href="@{/admin/plugins/select2.dist.css/select2-bootstrap.css}" rel="stylesheet"/>
+<link th:href="@{/admin/plugins/toggles/toggles.css}" rel="stylesheet"/>
+
+<link href="//cdn.bootcss.com/multi-select/0.9.12/css/multi-select.css" rel="stylesheet"/>
+<link href="//cdn.bootcss.com/select2/3.4.8/select2.min.css" rel="stylesheet"/>
+<link th:href="@{/admin/plugins/mditor/css/mditor.min.css}" rel="stylesheet"/>
+<link th:href="@{/admin/plugins/dropzone/4.3.0/min/dropzone.min.css}" rel="stylesheet">
+<style>
+    #tags_tagsinput {
+        background-color: #fafafa;
+        border: 1px solid #eeeeee;
+    }
+
+    #tags_addTag input {
+        width: 100%;
+    }
+
+    #tags_addTag {
+        margin-top: -5px;
+    }
+
+    .mditor .editor{
+        font-size: 14px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    .mditor .backdrop, .mditor .textarea, .mditor .viewer{
+        font-size: 14px;
+    }
+    .markdown-body{
+        font-size: 14px;
+    }
+    .note-toolbar {
+        text-align: center;
+    }
+
+    .note-editor.note-frame {
+        border: none;
+    }
+
+    .note-editor .note-toolbar {
+        background-color: #f5f5f5;
+        padding-bottom: 10px;
+    }
+
+    .note-toolbar .note-btn-group {
+        margin: 0;
+    }
+
+    .note-toolbar .note-btn {
+        border: none;
+    }
+
+    #articleForm #dropzone {
+        min-height: 200px;
+        background-color: #dbdde0;
+        line-height:200px;
+        margin-bottom: 10px;
+    }
+    #articleForm .dropzone {
+        border: 1px dashed #8662c6;
+        border-radius: 5px;
+        background: white;
+    }
+    #articleForm .dropzone .dz-message {
+        font-weight: 400;
+    }
+    #articleForm .dropzone .dz-message .note {
+        font-size: 0.8em;
+        font-weight: 200;
+        display: block;
+        margin-top: 1.4rem;
+    }
+</style>
+<body class="fixed-left">
+<div id="wrapper">
+    <div th:replace="admin/header::header-body"></div>
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 class="page-title">
+                            <th:block th:if="${null != poorUsers}">
+                                编辑贫困户信息
+                            </th:block>
+                            <th:block th:unless="${null != poorUsers}">
+                                发布贫困户信息
+                            </th:block>
+                        </h4>
+                    </div>
+                    <div class="col-md-12">
+
+                        <input type="hidden" id="attach_url" th:value="${attach_url}" />
+
+                        <form id="poorUserForm">
+                            <input type="hidden" name="uid"
+                                   th:value="${poorUsers!=null and poorUsers.uid!=null}?${poorUsers.uid}: ''" id="uid"/>
+                            <input type="hidden" name="status"
+                                   th:value="${poorUsers!=null and poorUsers.status !=null}?${poorUsers.status}: 'publish'"
+                                   id="status"/>
+                            <input type="hidden" name="enjoyPolicy" id="enjoyPolicy-editor"/>
+                            <input type="hidden" name="outpoorDate" id="hidOutpoorDate"/>
+                           <!-- <input type="hidden" name="fmtType" id="fmtType"/>-->
+
+
+                            <div class="form-group col-md-6" style="padding: 0 10px 0 0;">
+                                <input type="text" class="form-control" placeholder="请贫困户姓名（必须）" name="username"
+                                       required="required"
+                                       aria-required="true"
+                                       th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                            </div>
+
+                            <div class="form-group col-md-6" style="padding: 0 0 0 10px;">
+                                <input type="text" class="form-control"
+                                       placeholder="手机号码" name="mobilePhone"
+                                       th:value="${poorUsers!=null and poorUsers.mobilePhone !=null}?${poorUsers.mobilePhone}: ''"/>
+                            </div>
+
+                            <div class="form-group col-md-6" style="padding: 0 10px 0 0;">
+                                <input name="email" id="email" type="text" class="form-control" placeholder="邮箱"
+                                       th:value="${poorUsers!=null and poorUsers.email !=null}?${poorUsers.email}: ''"/>
+                            </div>
+                            <div class="form-group col-md-6" style="padding: 0 10px 0 0;">
+                                <input name="idNumber" id="idNumber" type="text" class="form-control" placeholder="身份证号码"
+                                       th:value="${poorUsers!=null and poorUsers.idNumber !=null}?${poorUsers.idNumber}: ''"/>
+                            </div>
+                            <div class="form-group col-md-6" style="padding: 0 10px 0 0;">
+                                <input name="age" id="age" type="text" class="form-control" placeholder="年龄"
+                                       th:value="${poorUsers!=null and poorUsers.age !=null}?${poorUsers.age}: ''"/>
+                            </div>
+                            <div class="form-group col-md-6" style="padding: 0 10px 0 0;">
+                                <input name="poorReason" id="poorReason" type="text" class="form-control" placeholder="扶贫原因"
+                                       th:value="${poorUsers!=null and poorUsers.poorReason !=null}?${poorUsers.poorReason}: ''"/>
+                            </div>
+                            <div class="form-group col-md-6" style="padding: 0 10px 0 0;">
+                                <input id="outpoorDate" type="text" class="form-control" placeholder="脱贫时间"
+                                       th:value="${poorUsers!=null and poorUsers.outpoorDate !=null}?${commons.fmtdate(poorUsers.outpoorDate, 'yyyy-MM-dd HH:mm:ss')}: ''"/>
+                            </div>
+
+                           <!-- <div class="form-group col-md-6">
+                                <select id="multiple-sel" class="select2 form-control" multiple="multiple"
+                                        data-placeholder="请选择分类...">
+                                    <th:block th:if="${null == categories}">
+                                        <option value="默认分类" selected="selected">默认分类</option>
+                                    </th:block>
+                                    <th:block th:unless="${null == categories}">
+                                        <th:block th:each="c : ${categories}">
+                                            <option th:value="${c.name}" th:text="${c.name}"
+                                                    th:selected="${null !=contents and adminCommons.exist_cat(c, contents.categories)}?true:false"></option>
+                                        </th:block>
+                                    </th:block>
+                                </select>
+                            </div>-->
+                            <div class="clearfix"></div>
+                            <div id="md-container" class="form-group">
+                                <textarea placeholder="享受政策" id="md-editor" th:utext="${poorUsers!=null and poorUsers.enjoyPolicy !=null}?${poorUsers.enjoyPolicy}: ''"></textarea>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="text-right">
+                                <a class="btn btn-default waves-effect waves-light" th:href="@{/admin/pooruser}">返回列表</a>
+                                <button type="button" class="btn btn-primary waves-effect waves-light"
+                                        onclick="subPoorUser('publish');">
+                                    保存
+                                </button>
+                                <button type="button" class="btn btn-warning waves-effect waves-light"
+                                        onclick="subPoorUser('draft');">
+                                    存为草稿
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div th:replace="admin/footer :: footer-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="admin/footer :: footer"></div>
+
+<script th:src="@{/admin/plugins/tagsinput/jquery.tagsinput.min.js}"></script>
+<script th:src="@{/admin/plugins/jquery-multi-select/jquery.quicksearch.js}"></script>
+
+<script th:src="@{/admin/plugins/mditor/js/mditor.min.js}"></script>
+<script th:src="@{/admin/plugins/multi-select/0.9.12/js/jquery.multi-select.min.js}"></script>
+<script th:src="@{/admin/plugins/select2/3.4.8/select2.min.js}"></script>
+<script th:src="@{//cdn.bootcss.com/jquery-toggles/2.0.4/toggles.min.js}"></script>
+<script th:src="@{/admin/plugins/dropzone/4.3.0/min/dropzone.min.js}"></script>
+<script th:src="@{/admin/plugins/to-markdown/3.1.0/to-markdown.min.js}"></script>
+
+<script th:src="@{/admin/js/laydate.js}"></script>
+<script th:src="@{/admin/js/pooruser.js}"></script>
+</body>
+</html>

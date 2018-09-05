@@ -32,4 +32,8 @@ httpportcfg:
 nettyserver:
   serviceIp: 0.0.0.0
   servicePort: 3460
+logging:
+  level:
+    springboot:
+        mapper: debug
 

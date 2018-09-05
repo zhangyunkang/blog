@@ -1,8 +1,8 @@
-# Jantent
+# zyk
 用spring boot开发的web博客系统
 # 概述
 
-- 首先要感谢几位大神，该项目的想法来源自[tale](https://github.com/otale/tale)、[MyBlog](https://github.com/JayTange/My-Blog)[Jantent](https://github.com/JayTange/Jantent)，本项目的想法。
+- 首先要感谢几位大神，该项目的想法来源自[tale](https://github.com/otale/tale)、[MyBlog](https://github.com/JayTange/My-Blog)、[Jantent](https://github.com/JayTange/Jantent)，本项目的想法。
 
 - 做了一些改造，增加了一些功能和一些代码的重构，并且更换了博客主题。
 
@@ -274,6 +274,6 @@ uid | int| 10  |false| false |组合主键，标签ID
 
 # 网站地址
 
-  **[www.janti.cn](http://www.janti.cn)**
+  **[www.janti.cn](http://www.zhangyunkang.cn)**
 
-  **[项目代码](https://github.com/JayTange/Jantent)**
+  **[项目代码](https://github.com/zhangyunkang/blog)**
