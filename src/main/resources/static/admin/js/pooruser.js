@@ -157,7 +157,6 @@ function subPoorUser(status) {
     $('#enjoyPolicy-editor').val(enjoyPolicy);
     $("#poorUserForm #status").val(status);
     if(outpoorDate){
-        console.log('进入')
         $("#hidOutpoorDate").val(time1);
     }
     var params = $("#poorUserForm").serialize();

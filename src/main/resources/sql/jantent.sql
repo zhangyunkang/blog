@@ -151,4 +151,4 @@ CREATE TABLE `t_poorusers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `t_users` (`uid`, `username`, `password`, `email`, `home_url`, `screen_name`, `created`, `activated`, `logged`, `group_name`)
 VALUES
-	(1, 'admin', 'a66abb5684c45962d887564f08346e8d', 'jantent@qq.com', NULL, 'admin', 1490756162, 0, 0, 'visitor');
+	(1, 'admin', 'a66abb5684c45962d887564f08346e8d', 'default@qq.com', NULL, 'admin', 1490756162, 0, 0, 'visitor');
