@@ -21,6 +21,7 @@ import springboot.modal.bo.RestResponseBo;
 import springboot.modal.vo.CommentVo;
 import springboot.modal.vo.ContentVo;
 import springboot.modal.vo.MetaVo;
+import springboot.modal.vo.PoorUserVo;
 import springboot.service.*;
 import springboot.util.IpUtil;
 import springboot.util.MyUtils;
@@ -56,7 +57,8 @@ public class IndexController extends AbstractController {
 
     @Resource
     private ISiteService siteService;
-
+    @Resource
+    private IPoorUserService poorUserService;
 
     /**
      * 博客首页
@@ -111,7 +113,38 @@ public class IndexController extends AbstractController {
         updateArticleHit(contents.getCid(), contents.getHits());
         return this.render("page");
     }
-
+    /**
+     * 贫困户内容页
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping(value = {"pooruser/{uid}", "pooruser/{uid}.html"})
+    public String getPoorUser(HttpServletRequest request, @PathVariable String uid) {
+        PoorUserVo poorUserVo = poorUserService.getPoorUse(uid);
+        if (null == poorUserVo || "draft".equals(poorUserVo.getStatus())) {
+            return this.render_404();
+        }
+        request.setAttribute("poorUser", poorUserVo);
+        request.setAttribute("is_post", true);
+        return this.render("pooruser");
+    }
+    /**
+     * 贫困户内容页（预览)
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping(value = {"pooruser/{uid}/preview", "pooruser/{uid}.html"})
+    public String poorUserPreview(HttpServletRequest request, @PathVariable String uid) {
+        PoorUserVo poorUserVo = poorUserService.getPoorUse(uid);
+        if (null == poorUserVo || "draft".equals(poorUserVo.getStatus())) {
+            return this.render_404();
+        }
+        request.setAttribute("poorUser", poorUserVo);
+        request.setAttribute("is_post", true);
+        return this.render("prepooruser");
+    }
     /**
      * 文章页（预览）
      *
