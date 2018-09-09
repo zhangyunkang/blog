@@ -16,4 +16,5 @@ public interface PoorUserVoMapper {
     int insert(PoorUserVo record);
     PoorUserVo selectByPrimaryKey(Integer cid);
     int updateByPrimaryKeySelective(PoorUserVo record);
+    int deleteByPrimaryKey(Integer cid);
 }

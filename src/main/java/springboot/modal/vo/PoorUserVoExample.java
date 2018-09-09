@@ -208,6 +208,10 @@ public class PoorUserVoExample {
             addCriterion("title like", value, "title");
             return (Criteria) this;
         }
+        public Criteria andUsernameLike(String value) {
+            addCriterion("username like", value, "username");
+            return (Criteria) this;
+        }
 
         public Criteria andTitleNotLike(String value) {
             addCriterion("title not like", value, "title");

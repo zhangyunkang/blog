@@ -34,4 +34,21 @@ public interface IPoorUserService {
      *
      */
     void updatePoorUser(PoorUserVo poorUserVo);
+    /**
+     * describe: 
+     * param: 根据贫困户id删除贫困户信息
+     * @return： 
+     * @author：张运康
+     * creat_date: 2018/9/9  18:30
+     **/
+    void deleteByCid(Integer cid);
+    /**
+     * 搜索、分页
+     *
+     * @param keyword keyword
+     * @param page    page
+     * @param limit   limit
+     * @return ContentVo
+     */
+    PageInfo<PoorUserVo> getPoorUserss(String keyword, Integer page, Integer limit);
 }

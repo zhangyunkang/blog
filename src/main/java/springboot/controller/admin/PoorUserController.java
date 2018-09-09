@@ -103,14 +103,33 @@ public class PoorUserController extends AbstractController {
     @Transactional(rollbackFor = TipException.class)
     public RestResponseBo delete(@RequestParam int cid, HttpServletRequest request) {
         try {
-            contentService.deleteByCid(cid);
-            logService.insertLog(LogActions.DEL_PAGE.getAction(), cid + "", request.getRemoteAddr(), this.getUid(request));
+            poorUserService.deleteByCid(cid);
+            logService.insertLog(LogActions.DEL_POORUSER.getAction(), cid + "", request.getRemoteAddr(), this.getUid(request));
         } catch (Exception e) {
-            String msg = "页面删除失败";
+            String msg = "贫困户删除失败";
             return ExceptionHelper.handlerException(logger, msg, e);
         }
         return RestResponseBo.ok();
     }
+    /**
+     * 搜索页
+     *
+     * @param keyword
+     * @return
+     */
+    @GetMapping(value = "poorsearch/{keyword}")
+    public String search(HttpServletRequest request, @PathVariable String keyword, @RequestParam(value = "limit", defaultValue = "12") int limit) {
+        return this.search(request, keyword, 1, limit);
+    }
 
+    @GetMapping(value = "poorsearch/{keyword}/{page}")
+    public String search(HttpServletRequest request, @PathVariable String keyword, @PathVariable int page, @RequestParam(value = "limit", defaultValue = "12") int limit) {
+        page = page < 0 || page > WebConst.MAX_PAGE ? 1 : page;
+        PageInfo<PoorUserVo> poorUserVoPageInfo = poorUserService.getPoorUserss(keyword, page, limit);
+        request.setAttribute("poorUsers", poorUserVoPageInfo);
+        request.setAttribute("type", "搜索");
+        request.setAttribute("keyword", keyword);
+        return "admin/pooruser_list";
+    }
 
 }

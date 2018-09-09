@@ -118,8 +118,8 @@
     where uid = #{uid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_contents
-    where cid = #{cid,jdbcType=INTEGER}
+    delete from t_poorusers
+    where uid = #{uid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="springboot.modal.vo.ContentVoExample">
     delete from t_contents

@@ -105,6 +105,27 @@ public class PoorUserServcieImpl implements IPoorUserService {
 
     }
 
+    @Override
+    public void deleteByCid(Integer cid) {
+        PoorUserVo poorUserVo = this.getPoorUse(cid + "");
+        if (null != poorUserVo) {
+            poorUserDao.deleteByPrimaryKey(cid);
+        }
+    }
+
+    @Override
+    public PageInfo<PoorUserVo> getPoorUserss(String keyword, Integer page, Integer limit) {
+        PageHelper.startPage(page, limit);
+        PoorUserVoExample poorUserVoExample = new PoorUserVoExample();
+        PoorUserVoExample.Criteria criteria = poorUserVoExample.createCriteria();
+        criteria.andTypeEqualTo(Types.ARTICLE.getType());
+        criteria.andStatusEqualTo(Types.PUBLISH.getType());
+        criteria.andUsernameLike("%" + keyword + "%");
+        poorUserVoExample.setOrderByClause("created desc");
+        List<PoorUserVo> PoorUserVos = poorUserDao.selectByExampleWithBLOBs(poorUserVoExample);
+        return new PageInfo<>(PoorUserVos);
+    }
+
     private void  checkContent(PoorUserVo poorUserVo) throws TipException{
         if (null == poorUserVo) {
             throw new TipException("贫困户对象不能为空");
