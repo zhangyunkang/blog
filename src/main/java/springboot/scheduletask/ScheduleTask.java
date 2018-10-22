@@ -31,7 +31,7 @@ public class ScheduleTask {
     @Value("${spring.mail.username}")
     private String mailTo;
 
-    @Scheduled(fixedRate = 86400000)
+    //@Scheduled(fixedRate = 86400000)
     public void process(){
         StringBuffer result = new StringBuffer();
         long totalMemory = Runtime.getRuntime().totalMemory();

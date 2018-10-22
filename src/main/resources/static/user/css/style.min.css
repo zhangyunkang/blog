@@ -1539,7 +1539,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 .footer-meta .meta-item {
     position: relative;
-    width: 50%;
+   /* width: 50%;*/
     min-height: 1px;
     padding: 0 30px;
     margin: 0 auto;

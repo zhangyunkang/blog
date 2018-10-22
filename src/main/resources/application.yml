@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8081
 spring:
   profiles:
     # 外置jdbc和log配置文件
