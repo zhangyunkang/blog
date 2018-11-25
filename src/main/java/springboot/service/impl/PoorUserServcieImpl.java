@@ -98,7 +98,7 @@ public class PoorUserServcieImpl implements IPoorUserService {
             poorUserVo.setEmail(null);
         }
         int time = DateKit.getCurrentUnixTime();
-        poorUserVo.setEnjoyPolicy(EmojiParser.parseToAliases(poorUserVo.getEnjoyPolicy()));
+        //poorUserVo.setEnjoyPolicy(EmojiParser.parseToAliases(poorUserVo.getEnjoyPolicy()));
         poorUserDao.updateByPrimaryKeySelective(poorUserVo);
         valueOperations.set(poorUserKey,poorUserVo);
         redisService.expireKey(poorUserKey,PoorUserKey.LIVE_TIME, TimeUnit.HOURS);
@@ -133,15 +133,15 @@ public class PoorUserServcieImpl implements IPoorUserService {
         if (StringUtils.isBlank(poorUserVo.getUsername())) {
             throw new TipException("贫困户姓名不能为空");
         }
-        if (StringUtils.isBlank(poorUserVo.getEnjoyPolicy())) {
+      /*  if (StringUtils.isBlank(poorUserVo.getEnjoyPolicy())) {
             throw new TipException("贫困户享受政策不能为空");
-        }
+        }*/
         if (poorUserVo.getUsername().length() > 200) {
             throw new TipException("贫困户姓名过长");
         }
-        if (poorUserVo.getEnjoyPolicy().length() > 65000) {
+        /*if (poorUserVo.getEnjoyPolicy().length() > 65000) {
             throw new TipException("贫困户享受政策过长");
-        }
+        }*/
       /*  if (null == contents.getAuthorId()) {
             throw new TipException("请登录后发布文章");
         }*/

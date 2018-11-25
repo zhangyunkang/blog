@@ -142,12 +142,59 @@ CREATE TABLE `t_poorusers` (
   `created` int(10) unsigned DEFAULT '0' ,
   `poor_reason` varchar(200) DEFAULT NULL,
   `enjoy_policy` text COMMENT '内容文字',
+  `fremark` text COMMENT '家庭成员情况备注',
+  `lbcsbzremark` text COMMENT '两不愁三保障备注',
   `info_image` varchar(512),
   `outpoor_date` int(10) unsigned DEFAULT '0',
   PRIMARY KEY (`uid`),
   UNIQUE KEY `name` (`username`),
 /*  UNIQUE KEY `phone` (`mobile_phone`),*/
   UNIQUE KEY `mail` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `t_fusers`;
+CREATE TABLE `t_fusers` (
+  `fuid` int(10) unsigned NOT NULL AUTO_INCREMENT ,
+  `pid` int(10) unsigned DEFAULT '0' ,
+  `created` int(10) unsigned DEFAULT '0' ,
+  `name` varchar(200) DEFAULT NULL ,
+  `frelation` varchar(200) DEFAULT NULL ,
+  `school_info` varchar(200) DEFAULT NULL ,
+  `healthy_info` varchar(64) DEFAULT NULL  ,
+  `work_ability` varchar(200) DEFAULT NULL  ,
+  `work_info` varchar(200) DEFAULT NULL  ,
+  PRIMARY KEY (`fuid`),
+  KEY `pid` (`pid`),
+  KEY `created` (`created`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `t_lbcsbz`;
+CREATE TABLE `t_lbcsbz` (
+  `lbcsbzid` int(10) unsigned NOT NULL AUTO_INCREMENT ,
+  `pid` int(10) unsigned DEFAULT '0' ,
+  `created` int(10) unsigned DEFAULT '0' ,
+  `sortnumber` varchar(50) DEFAULT NULL ,
+  `policy_type` varchar(200) DEFAULT NULL ,
+  `lbcsbzyear` varchar(50) DEFAULT NULL ,
+  `frelation` varchar(200) DEFAULT NULL ,
+  `help_money` varchar(200) DEFAULT NULL ,
+  `remark` text,
+  PRIMARY KEY (`lbcsbzid`),
+  KEY `pid` (`pid`),
+  KEY `created` (`created`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `t_cyfgjdbf`;
+CREATE TABLE `t_cyfgjdbf` (
+  `cyfgjdbfid` int(10) unsigned NOT NULL AUTO_INCREMENT ,
+  `pid` int(10) unsigned DEFAULT '0' ,
+  `created` int(10) unsigned DEFAULT '0' ,
+  `enjoy_industy` varchar(50) DEFAULT NULL ,
+  `industy_year` varchar(200) DEFAULT NULL ,
+  `earn_money` varchar(50) DEFAULT NULL ,
+  `leader_name` varchar(200) DEFAULT NULL ,
+  `organization` varchar(200) DEFAULT NULL ,
+  `mobile` varchar(200) DEFAULT NULL ,
+  PRIMARY KEY (`cyfgjdbfid`),
+  KEY `pid` (`pid`),
+  KEY `created` (`created`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `t_users` (`uid`, `username`, `password`, `email`, `home_url`, `screen_name`, `created`, `activated`, `logged`, `group_name`)
 VALUES

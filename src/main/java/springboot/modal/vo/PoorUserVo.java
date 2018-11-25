@@ -57,6 +57,14 @@ public class PoorUserVo implements Serializable {
      **/
     private String enjoyPolicy;
     /**
+     * 家庭成员情况备注
+     **/
+    private String fRemark;
+    /**
+     * 两不愁三保障备注
+     **/
+    private String lbcsbzRemark;
+    /**
      * 二维码图片地址
      **/
     private String infoImage;
@@ -169,6 +177,23 @@ public class PoorUserVo implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getfRemark() {
+        return fRemark;
+    }
+
+    public void setfRemark(String fRemark) {
+        this.fRemark = fRemark;
+    }
+
+    public String getLbcsbzRemark() {
+        return lbcsbzRemark;
+    }
+
+    public void setLbcsbzRemark(String lbcsbzRemark) {
+        this.lbcsbzRemark = lbcsbzRemark;
+    }
+
     @Override
     public String toString() {
         return "PoorUserVo{" +

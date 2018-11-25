@@ -145,16 +145,16 @@ function subPoorUser(status) {
     var outpoorDate =  $('#outpoorDate').val();
     var date = new Date(outpoorDate);
     var time1 = Date.parse(date)/1000;
-    var enjoyPolicy =  mditor.value;
+  /*  var enjoyPolicy =  mditor.value*/;
     if (username == '') {
         tale.alertWarn('请输入贫困户姓名');
         return;
     }
-    if (enjoyPolicy == '') {
+   /* if (enjoyPolicy == '') {
         tale.alertWarn('请输入享受政策');
         return;
     }
-    $('#enjoyPolicy-editor').val(enjoyPolicy);
+    $('#enjoyPolicy-editor').val(enjoyPolicy);*/
     $("#poorUserForm #status").val(status);
     if(outpoorDate){
         $("#hidOutpoorDate").val(time1);

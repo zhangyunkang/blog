@@ -33,7 +33,7 @@ import javax.sql.DataSource;
 
 
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 @MapperScan("springboot.dao")
 public class StartApplication {
 

@@ -19,7 +19,7 @@ import java.util.List;
  * @author tangj
  * @date 2018/5/2 22:59
  */
-@Component
+//@Component
 public class ScheduleTask {
 
     @Resource

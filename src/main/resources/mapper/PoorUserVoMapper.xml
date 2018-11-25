@@ -14,6 +14,8 @@
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="springboot.modal.vo.PoorUserVo">
     <result column="enjoy_policy" jdbcType="LONGVARCHAR" property="enjoyPolicy" />
+    <result column="fremark" jdbcType="LONGVARCHAR" property="fRemark" />
+    <result column="lbcsbzremark" jdbcType="LONGVARCHAR" property="lbcsbzRemark" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -77,7 +79,7 @@
     uid, username, email, mobile_phone, id_number, age,status, poor_reason, info_image, outpoor_date
   </sql>
   <sql id="Blob_Column_List">
-    enjoy_policy
+    enjoy_policy,fremark,lbcsbzremark
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="springboot.modal.vo.PoorUserVoExample" resultMap="ResultMapWithBLOBs">
     select
@@ -130,12 +132,12 @@
   <insert id="insert" parameterType="springboot.modal.vo.PoorUserVo" useGeneratedKeys="true" keyProperty="uid">
     insert into t_poorusers (uid, username, email,created,outpoor_date,
     mobile_phone,status,type,id_number,age,poor_reason,
-    info_image, enjoy_policy)
+    info_image, enjoy_policy, fremark, lbcsbzremark)
     values (#{uid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
     #{created,jdbcType=INTEGER}, #{outpoorDate,jdbcType=INTEGER},
     #{mobilePhone,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
     #{idNumber,jdbcType=VARCHAR},#{age,jdbcType=VARCHAR},#{poorReason,jdbcType=VARCHAR},
-     #{infoImage,jdbcType=VARCHAR},#{enjoyPolicy,jdbcType=LONGVARCHAR})
+     #{infoImage,jdbcType=VARCHAR},#{enjoyPolicy,jdbcType=LONGVARCHAR},#{fRemark,jdbcType=LONGVARCHAR},#{lbcsbzRemark,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="springboot.modal.vo.ContentVo" useGeneratedKeys="true" keyProperty="cid">
     insert into t_contents
@@ -391,6 +393,12 @@
       </if>
       <if test="enjoyPolicy != null">
         enjoy_policy = #{enjoyPolicy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fRemark != null">
+        fremark = #{fRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="lbcsbzRemark != null">
+        lbcsbzremark = #{lbcsbzRemark,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where uid = #{uid,jdbcType=INTEGER}
