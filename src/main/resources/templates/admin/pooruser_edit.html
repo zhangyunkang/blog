@@ -195,57 +195,61 @@
                                         </th>
                                     </tr>
                                     </thead>
+                                    <div th:if="${fusers}">
                                     <tbody>
+                                    <th:block th:each="fuser :${fusers.list}">
                                     <tr>
                                         <td class="py-1">
                                             <input type="text" class="form-control" placeholder="请输入" name="username1"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${fuser.name}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username2"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${fuser.frelation}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username3"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${fuser.schoolInfo}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username4"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${fuser.healthyInfo}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username5"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${fuser.workAbility}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username6"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${fuser.workInfo}"/>
                                         </td>
                                         <td>
                                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                <a href="javascript:void(0)" th:onclick="'delFUser('+${poorUsers.uid}+');'"
+                                                <a href="javascript:void(0)" th:onclick="'delFUser('+${fuser.fuid}+');'"
                                                    class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
                                                         class="fa fa-trash-o"></i> <span>删除</span></a>
                                             </div>
                                         </td>
                                     </tr>
+                                    </th:block>
                                     <tr>
                                         <td>备注：</td>
                                         <td colspan="5"><textarea name="fRemark" id="fRemark" th:value="${poorUsers!=null and poorUsers.fRemark!=null }?${poorUsers.fRemark}: ''"><th:block th:text="${poorUsers.fRemark}"/></textarea> </td>
                                     </tr>
                                     </tbody>
+                                    </div>
                                 </table>
                             </div>
                             <div class="col-md-12">

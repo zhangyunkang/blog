@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by lxg
  * on 2017/2/20.
  */
-public class FUsers implements Serializable {
+public class FUsersVo implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
      * pooruser表主键

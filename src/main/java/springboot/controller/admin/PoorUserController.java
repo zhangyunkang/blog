@@ -18,12 +18,14 @@ import springboot.exception.TipException;
 import springboot.modal.bo.RestResponseBo;
 import springboot.modal.vo.*;
 import springboot.service.IContentService;
+import springboot.service.IFUserService;
 import springboot.service.ILogService;
 import springboot.service.IPoorUserService;
 import springboot.util.Commons;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 贫困户管理
@@ -40,6 +42,8 @@ public class PoorUserController extends AbstractController {
     private IContentService contentService;
     @Resource
     private IPoorUserService poorUserService;
+    @Resource
+    private IFUserService ifUserService;
 
     @Resource
     private ILogService logService;
@@ -66,9 +70,40 @@ public class PoorUserController extends AbstractController {
         request.setAttribute("poorUsers", poorUserVo);
         request.setAttribute(Types.ATTACH_URL.getType(), Commons.site_option(Types.ATTACH_URL.getType()));
         request.setAttribute("active", "pooruser");
+        completeFUsers(request, poorUserVo);
+        completeLbcsbz(request, poorUserVo);
         return "admin/pooruser_edit";
     }
-
+    /**
+     * 查询贫困户的家庭成员信息，并补充到里面，返回前端
+     *
+     * @param request
+     * @param fuser
+     */
+    private void completeFUsers(HttpServletRequest request, PoorUserVo fuser) {
+            String cp = request.getParameter("cp");
+            if (StringUtils.isBlank(cp)) {
+                cp = "1";
+            }
+            request.setAttribute("cp", cp);
+            PageInfo<FUsersVo> fuserPaginator = ifUserService.getFUsers(fuser.getUid(), Integer.parseInt(cp), 8);
+            request.setAttribute("fusers", fuserPaginator);
+    }
+    /**
+     * 查询贫困户的两不愁三保障信息，并补充到里面，返回前端
+     *
+     * @param request
+     * @param fuser
+     */
+    private void completeLbcsbz(HttpServletRequest request, PoorUserVo fuser) {
+            String cp = request.getParameter("cp");
+            if (StringUtils.isBlank(cp)) {
+                cp = "1";
+            }
+            request.setAttribute("cp", cp);
+            PageInfo<FUsersVo> fuserPaginator = ifUserService.getFUsers(fuser.getUid(), Integer.parseInt(cp), 8);
+            request.setAttribute("fusers", fuserPaginator);
+    }
     @PostMapping(value = "publish")
     @ResponseBody
     @Transactional(rollbackFor = TipException.class)

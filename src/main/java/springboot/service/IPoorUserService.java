@@ -2,8 +2,11 @@ package springboot.service;
 
 import com.github.pagehelper.PageInfo;
 import springboot.modal.vo.ContentVo;
+import springboot.modal.vo.FUsersVo;
 import springboot.modal.vo.PoorUserVo;
 import springboot.modal.vo.PoorUserVoExample;
+
+import java.util.List;
 
 /**
  * @author tangj
