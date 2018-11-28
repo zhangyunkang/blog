@@ -17,10 +17,7 @@ import springboot.dto.Types;
 import springboot.exception.TipException;
 import springboot.modal.bo.RestResponseBo;
 import springboot.modal.vo.*;
-import springboot.service.IContentService;
-import springboot.service.IFUserService;
-import springboot.service.ILogService;
-import springboot.service.IPoorUserService;
+import springboot.service.*;
 import springboot.util.Commons;
 
 import javax.annotation.Resource;
@@ -44,6 +41,8 @@ public class PoorUserController extends AbstractController {
     private IPoorUserService poorUserService;
     @Resource
     private IFUserService ifUserService;
+    @Resource
+    private ILbcsbzService lbcsbzService;
 
     @Resource
     private ILogService logService;
@@ -78,31 +77,31 @@ public class PoorUserController extends AbstractController {
      * 查询贫困户的家庭成员信息，并补充到里面，返回前端
      *
      * @param request
-     * @param fuser
+     * @param poorUser
      */
-    private void completeFUsers(HttpServletRequest request, PoorUserVo fuser) {
+    private void completeFUsers(HttpServletRequest request, PoorUserVo poorUser) {
             String cp = request.getParameter("cp");
             if (StringUtils.isBlank(cp)) {
                 cp = "1";
             }
             request.setAttribute("cp", cp);
-            PageInfo<FUsersVo> fuserPaginator = ifUserService.getFUsers(fuser.getUid(), Integer.parseInt(cp), 8);
+            PageInfo<FUsersVo> fuserPaginator = ifUserService.getFUsers(poorUser.getUid(), Integer.parseInt(cp), 8);
             request.setAttribute("fusers", fuserPaginator);
     }
     /**
      * 查询贫困户的两不愁三保障信息，并补充到里面，返回前端
      *
      * @param request
-     * @param fuser
+     * @param poorUser
      */
-    private void completeLbcsbz(HttpServletRequest request, PoorUserVo fuser) {
+    private void completeLbcsbz(HttpServletRequest request, PoorUserVo poorUser) {
             String cp = request.getParameter("cp");
             if (StringUtils.isBlank(cp)) {
                 cp = "1";
             }
             request.setAttribute("cp", cp);
-            PageInfo<FUsersVo> fuserPaginator = ifUserService.getFUsers(fuser.getUid(), Integer.parseInt(cp), 8);
-            request.setAttribute("fusers", fuserPaginator);
+            PageInfo<LbcsbzVo> lbcsbzsPaginator = lbcsbzService.getLbcsbzs(poorUser.getUid(), Integer.parseInt(cp), 8);
+            request.setAttribute("lbcsbzs", lbcsbzsPaginator);
     }
     @PostMapping(value = "publish")
     @ResponseBody

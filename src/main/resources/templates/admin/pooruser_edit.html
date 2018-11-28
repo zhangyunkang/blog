@@ -259,7 +259,7 @@
                                     </h4>
                                 </div>
                                 <div class="check-div form-inline">
-                                    <button type="button" class="btn btn-warning btn-xs" onclick="book2()">添加家庭成员</button>
+                                    <button type="button" class="btn btn-warning2 btn-xs" onclick="book2()">添加两不愁三保障信息</button>
                                 </div>
                                 <table class="table table-striped">
                                     <thead>
@@ -287,57 +287,56 @@
                                         </th>
                                     </tr>
                                     </thead>
+                                    <div th:if="${lbcsbzs}">
                                     <tbody>
+                                    <th:block th:each="lbcsbz :${lbcsbzs.list}">
                                     <tr>
-                                        <td class="py-1">
-                                            <input type="text" class="form-control" placeholder="请输入" name="username7"
-                                                   required="required"
-                                                   aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
-                                        </td>
+                                        <td class="py-1" th:text="${lbcsbz.sortNumber}"></td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username8"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${lbcsbz.policyType}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username9"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${lbcsbz.lbcsbzyear}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username10"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${lbcsbz.frelation}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username11"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${lbcsbz.helpMoney}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username12"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${lbcsbz.remark}"/>
                                         </td>
                                         <td>
                                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                <a href="javascript:void(0)" th:onclick="'delFUser('+${poorUsers.uid}+');'"
+                                                <a href="javascript:void(0)" th:onclick="'delFUser('+${lbcsbz.lbcsbzid}+');'"
                                                    class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
                                                         class="fa fa-trash-o"></i> <span>删除</span></a>
                                             </div>
                                         </td>
                                     </tr>
+                                    </th:block>
                                     <tr>
                                         <td>备注：</td>
                                         <td colspan="5"><textarea name="lbcsbzRemark" id="lbcsbzRemark" th:value="${poorUsers!=null and poorUsers.lbcsbzRemark!=null }?${poorUsers.lbcsbzRemark}: ''"><th:block th:text="${poorUsers.lbcsbzRemark}"/></textarea> </td>
                                     </tr>
                                     </tbody>
+                                    </div>
                                 </table>
                             </div>
                             <div class="col-md-12">

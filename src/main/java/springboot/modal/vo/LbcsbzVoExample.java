@@ -115,7 +115,7 @@ public class LbcsbzVoExample {
         }
 
         public Criteria andCidEqualTo(Integer value) {
-            addCriterion("cid =", value, "cid");
+            addCriterion("pid =", value, "pid");
             return (Criteria) this;
         }
 

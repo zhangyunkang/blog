@@ -36,6 +36,7 @@ public class LbcsbzVo implements Serializable {
      * 与户主关系
      **/
     private String frelation;
+    private String helpMoney;
     /**
      * 备注
      **/
@@ -99,6 +100,14 @@ public class LbcsbzVo implements Serializable {
 
     public void setFrelation(String frelation) {
         this.frelation = frelation;
+    }
+
+    public String getHelpMoney() {
+        return helpMoney;
+    }
+
+    public void setHelpMoney(String helpMoney) {
+        this.helpMoney = helpMoney;
     }
 
     public String getRemark() {
