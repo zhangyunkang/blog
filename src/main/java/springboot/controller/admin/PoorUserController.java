@@ -43,6 +43,8 @@ public class PoorUserController extends AbstractController {
     private IFUserService ifUserService;
     @Resource
     private ILbcsbzService lbcsbzService;
+    @Resource
+    private IcyfgjdbfService cyfgjdbfService;
 
     @Resource
     private ILogService logService;
@@ -71,7 +73,23 @@ public class PoorUserController extends AbstractController {
         request.setAttribute("active", "pooruser");
         completeFUsers(request, poorUserVo);
         completeLbcsbz(request, poorUserVo);
+        completeCyfgjdbf(request, poorUserVo);
         return "admin/pooruser_edit";
+    }
+    /**
+     * 查询贫困户的家庭成员信息，并补充到里面，返回前端
+     *
+     * @param request
+     * @param poorUser
+     */
+    private void completeCyfgjdbf(HttpServletRequest request, PoorUserVo poorUser) {
+            String cp = request.getParameter("cp");
+            if (StringUtils.isBlank(cp)) {
+                cp = "1";
+            }
+            request.setAttribute("cp", cp);
+            PageInfo<CyfgjdbfVo> cyfgjdbfPaginator = cyfgjdbfService.getCyfgjdbfs(poorUser.getUid(), Integer.parseInt(cp), 8);
+            request.setAttribute("cyfgjdbfs", cyfgjdbfPaginator);
     }
     /**
      * 查询贫困户的家庭成员信息，并补充到里面，返回前端

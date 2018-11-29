@@ -75,6 +75,20 @@
         display: block;
         margin-top: 1.4rem;
     }
+    .btn-xs, .btn-group-xs>.btn{
+        padding: 6px 9px;
+        font-size: 12px;
+        line-height: 1.083;
+        border-radius: 3px;
+    }
+    .btn-warning2{
+        background: #fff;
+        border: 1px solid #ccc!important;
+        font-weight: normal!important;
+        margin-right: 10px;
+        color: #eab67c!important;
+        border: 1px solid #eab67c!important;
+    }
 </style>
 <script>
     function book(){
@@ -167,7 +181,7 @@
                                 </div>
                                 <!-- Small modal -->
                                 <div class="check-div form-inline">
-                                    <button type="button" class="btn btn-warning btn-xs" onclick="book()">添加家庭成员</button>
+                                    <button type="button" class="btn btn-warning2 btn-xs" onclick="book()">添加家庭成员</button>
                                 </div>
                                 <table class="table table-striped">
                                     <thead>
@@ -330,7 +344,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    </th:block>
+                                   </th:block>
                                     <tr>
                                         <td>备注：</td>
                                         <td colspan="5"><textarea name="lbcsbzRemark" id="lbcsbzRemark" th:value="${poorUsers!=null and poorUsers.lbcsbzRemark!=null }?${poorUsers.lbcsbzRemark}: ''"><th:block th:text="${poorUsers.lbcsbzRemark}"/></textarea> </td>
@@ -341,7 +355,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="check-div form-inline">
-                                    <button type="button" class="btn btn-warning btn-xs" onclick="book3()">产业覆盖结对帮扶</button>
+                                    <button type="button" class="btn btn-warning2 btn-xs" onclick="book3()">产业覆盖结对帮扶</button>
                                 </div>
                                 <table class="table table-striped">
                                     <thead>
@@ -373,53 +387,57 @@
                                         </th>
                                     </tr>
                                     </thead>
+                                    <div th:if="${cyfgjdbfs}">
                                     <tbody>
+                                    <th:block th:each="cyfgjdbf :${cyfgjdbfs.list}">
                                     <tr>
                                         <td class="py-1">
                                             <input type="text" class="form-control" placeholder="请输入" name="username13"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${cyfgjdbf.enjoyIndusty}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username14"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${cyfgjdbf.industyYear}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username15"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${cyfgjdbf.earnMoney}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username16"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${cyfgjdbf.leaderName}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username17"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${cyfgjdbf.organization}"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="请输入" name="username18"
                                                    required="required"
                                                    aria-required="true"
-                                                   th:value="${poorUsers!=null and poorUsers.username!=null }?${poorUsers.username}: ''"/>
+                                                   th:value="${cyfgjdbf.mobile}"/>
                                         </td>
                                         <td>
                                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                <a href="javascript:void(0)" th:onclick="'delFUser('+${poorUsers.uid}+');'"
+                                                <a href="javascript:void(0)" th:onclick="'delFUser('+${cyfgjdbf.cyfgjdbfid}+');'"
                                                    class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
                                                         class="fa fa-trash-o"></i> <span>删除</span></a>
                                             </div>
                                         </td>
                                     </tr>
+                                    </th:block>
                                     </tbody>
+                                    </div>
                                 </table>
                             </div>
                             </th:block>
@@ -456,6 +474,8 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <form class="form-horizontal" id="fForm" name="FForm">
+                        <input type="hidden" name="uid"
+                               th:value="${poorUsers!=null and poorUsers.uid!=null}?${poorUsers.uid}: ''" id="uid"/>
                         <div class="form-group ">
                             <label for="fName" class="col-xs-3 control-label">姓名：</label>
                             <div class="col-xs-8 ">
@@ -513,6 +533,8 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <form class="form-horizontal" id="lbcsbz" name="lbcsbz">
+                        <input type="hidden" name="uid"
+                               th:value="${poorUsers!=null and poorUsers.uid!=null}?${poorUsers.uid}: ''" id="uid"/>
                         <div class="form-group ">
                             <label for="policyType" class="col-xs-3 control-label">享受政策类型：</label>
                             <div class="col-xs-8 ">
@@ -562,7 +584,9 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form class="form-horizontal" id="lbcsbz" name="lbcsbz">
+                    <form class="form-horizontal" id="cyfgjdbf" name="cyfgjdbf">
+                        <input type="hidden" name="uid"
+                               th:value="${poorUsers!=null and poorUsers.uid!=null}?${poorUsers.uid}: ''" id="uid"/>
                         <div class="form-group ">
                             <label for="enjoyIndusty" class="col-xs-3 control-label">享受产业：</label>
                             <div class="col-xs-8 ">
