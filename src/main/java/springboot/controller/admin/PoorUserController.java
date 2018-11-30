@@ -135,7 +135,31 @@ public class PoorUserController extends AbstractController {
         }
         return RestResponseBo.ok();
     }
-
+    @PostMapping(value = "insertFUser")
+    @ResponseBody
+    @Transactional(rollbackFor = TipException.class)
+    public RestResponseBo insertFUser(FUsersVo FUserVo, HttpServletRequest request) {
+        try {
+            ifUserService.insertFUser(FUserVo);
+        } catch (Exception e) {
+            String msg = "添加家庭成员失败";
+            return ExceptionHelper.handlerException(logger, msg, e);
+        }
+        return RestResponseBo.ok();
+    }
+    @RequestMapping(value = "deleteFUser")
+    @ResponseBody
+    @Transactional(rollbackFor = TipException.class)
+    public RestResponseBo deleteFUser(@RequestParam int fid,@RequestParam int pid, HttpServletRequest request) {
+        try {
+            ifUserService.delete(fid,pid);
+            logService.insertLog(LogActions.DEL_FUSER.getAction(), fid + "", request.getRemoteAddr(), this.getUid(request));
+        } catch (Exception e) {
+            String msg = "贫困户家庭成员删除失败";
+            return ExceptionHelper.handlerException(logger, msg, e);
+        }
+        return RestResponseBo.ok();
+    }
     @PostMapping(value = "modify")
     @ResponseBody
     @Transactional(rollbackFor = TipException.class)

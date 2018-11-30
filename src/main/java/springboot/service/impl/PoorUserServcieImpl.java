@@ -63,7 +63,7 @@ public class PoorUserServcieImpl implements IPoorUserService {
         checkContent(poorUserVo);
 
         // 去除表情
-        poorUserVo.setEnjoyPolicy(EmojiParser.parseToAliases(poorUserVo.getEnjoyPolicy()));
+        //poorUserVo.setEnjoyPolicy(EmojiParser.parseToAliases(poorUserVo.getEnjoyPolicy()));
 
         int time = DateKit.getCurrentUnixTime();
         poorUserVo.setCreated(time);

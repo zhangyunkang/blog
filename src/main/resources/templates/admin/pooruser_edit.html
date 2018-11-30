@@ -251,7 +251,7 @@
                                         </td>
                                         <td>
                                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                <a href="javascript:void(0)" th:onclick="'delFUser('+${fuser.fuid}+');'"
+                                                <a href="javascript:void(0)" th:onclick="'delFUser('+${fuser.fuid}+','+${poorUsers.uid}+');'"
                                                    class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
                                                         class="fa fa-trash-o"></i> <span>删除</span></a>
                                             </div>
@@ -440,6 +440,180 @@
                                     </div>
                                 </table>
                             </div>
+                                <!--弹出窗口 添加家庭成员-->
+                                <!-- data-backdrop="false"去除遮罩层  -->
+                                <div class="modal fade"  id="myModal" role="dialog" data-backdrop="true"  aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="addFuser">添加家庭成员</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="container-fluid">
+                                                    <form class="form-horizontal" id="fForm" name="FForm">
+                                                        <input type="hidden" name="pid"
+                                                               th:value="${poorUsers!=null and poorUsers.uid!=null}?${poorUsers.uid}: ''" id="uid"/>
+                                                        <div class="form-group ">
+                                                            <label for="fName" class="col-xs-3 control-label">姓名：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" id="fName" name="name" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label for="fRelation" class="col-xs-3 control-label">与户主关系：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" id="fRelation" name="frelation" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label for="schoolInfo" class="col-xs-3 control-label">在校情况：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" id="schoolInfo" name="schoolInfo" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label for="healthyInfo" class="col-xs-3 control-label">身体情况：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" id="healthyInfo" name="healthyInfo" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label for="workAbility" class="col-xs-3 control-label">有无劳动力：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" id="workAbility" name="workAbility" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label for="workInfo" class="col-xs-3 control-label">务工情况：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" id="workInfo" name="workInfo" placeholder="">
+                                                            </div>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-xs btn-xs btn-white" data-dismiss="modal">取 消</button>
+                                                <a href="javascript:void(0)" th:onclick="'subFUser('+${poorUsers.uid}+');'"
+                                                   class="btn btn-success btn-sm waves-effect waves-light m-b-5"><i
+                                                        class="fa fa-trash-o"></i> <span>保 存</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade"  id="myModal2" role="dialog" data-backdrop="true"  aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="gridSystemModalLabel">添加两不愁三保障信息</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="container-fluid">
+                                                    <form class="form-horizontal" id="lbcsbz" name="lbcsbz">
+                                                        <input type="hidden" name="pid"
+                                                               th:value="${poorUsers!=null and poorUsers.uid!=null}?${poorUsers.uid}: ''" id="uid"/>
+                                                        <div class="form-group ">
+                                                            <label for="policyType" class="col-xs-3 control-label">享受政策类型：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" name="policyType" id="policyType" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label for="fRelation" class="col-xs-3 control-label">与户主关系：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" id="fRelation" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label for="lbcsbzyear" class="col-xs-3 control-label">年度：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" name="lbcsbzyear" id="lbcsbzyear" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label for="helpMoney" class="col-xs-3 control-label">救助金额：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" id="helpMoney" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label for="remark" class="col-xs-3 control-label">备注：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" id="remark" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-xs btn-xs btn-white" data-dismiss="modal">取 消</button>
+                                                <button type="button" class="btn btn-xs btn-xs btn-green">保 存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade"  id="myModal3" role="dialog" data-backdrop="true"  aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="gridSystemModalLabel">添加产业覆盖结对帮扶</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="container-fluid">
+                                                    <form class="form-horizontal" id="cyfgjdbf" name="cyfgjdbf">
+                                                        <input type="hidden" name="pid"
+                                                               th:value="${poorUsers!=null and poorUsers.uid!=null}?${poorUsers.uid}: ''" id="uid"/>
+                                                        <div class="form-group ">
+                                                            <label for="enjoyIndusty" class="col-xs-3 control-label">享受产业：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" name="enjoyIndusty" id="enjoyIndusty" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label for="industyYear" class="col-xs-3 control-label">年度：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" name="industyYear" id="industyYear" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label for="earnMoney" class="col-xs-3 control-label">收益金额：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" id="earnMoney" placeholder="">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group ">
+                                                            <label for="leaderName" class="col-xs-3 control-label">帮扶干部：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" name="leaderName" id="leaderName" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label for="organization" class="col-xs-3 control-label">所属单位：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" name="organization" id="organization" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label for="mobile" class="col-xs-3 control-label">联系方式：</label>
+                                                            <div class="col-xs-8 ">
+                                                                <input type="text" class="form-control input-sm duiqi" name="mobile" id="mobile" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-xs btn-xs btn-white" data-dismiss="modal">取 消</button>
+                                                <button type="button" class="btn btn-xs btn-xs btn-green">保 存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </th:block>
                             <div class="clearfix"></div>
                             <div class="clearfix"></div>
@@ -462,178 +636,7 @@
         </div>
     </div>
 </div>
-<!--弹出窗口 添加家庭成员-->
-<!-- data-backdrop="false"去除遮罩层  -->
-<div class="modal fade"  id="myModal" role="dialog" data-backdrop="true"  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="gridSystemModalLabel">添加家庭成员</h4>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <form class="form-horizontal" id="fForm" name="FForm">
-                        <input type="hidden" name="uid"
-                               th:value="${poorUsers!=null and poorUsers.uid!=null}?${poorUsers.uid}: ''" id="uid"/>
-                        <div class="form-group ">
-                            <label for="fName" class="col-xs-3 control-label">姓名：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" id="fName" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="fRelation" class="col-xs-3 control-label">与户主关系：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" id="fRelation" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="schoolInfo" class="col-xs-3 control-label">在校情况：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" id="schoolInfo" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="healthyInfo" class="col-xs-3 control-label">身体情况：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" id="healthyInfo" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="workAbility" class="col-xs-3 control-label">有无劳动力：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" id="workAbility" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="workInfo" class="col-xs-3 control-label">务工情况：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" id="workInfo" placeholder="">
-                            </div>
-                        </div>
 
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-xs btn-xs btn-white" data-dismiss="modal">取 消</button>
-                <button type="button" class="btn btn-xs btn-xs btn-green">保 存</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade"  id="myModal2" role="dialog" data-backdrop="true"  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="gridSystemModalLabel">添加两不愁三保障信息</h4>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <form class="form-horizontal" id="lbcsbz" name="lbcsbz">
-                        <input type="hidden" name="uid"
-                               th:value="${poorUsers!=null and poorUsers.uid!=null}?${poorUsers.uid}: ''" id="uid"/>
-                        <div class="form-group ">
-                            <label for="policyType" class="col-xs-3 control-label">享受政策类型：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" name="policyType" id="policyType" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="fRelation" class="col-xs-3 control-label">与户主关系：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" id="fRelation" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="lbcsbzyear" class="col-xs-3 control-label">年度：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" name="lbcsbzyear" id="lbcsbzyear" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="helpMoney" class="col-xs-3 control-label">救助金额：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" id="helpMoney" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="remark" class="col-xs-3 control-label">备注：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" id="remark" placeholder="">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-xs btn-xs btn-white" data-dismiss="modal">取 消</button>
-                <button type="button" class="btn btn-xs btn-xs btn-green">保 存</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade"  id="myModal3" role="dialog" data-backdrop="true"  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="gridSystemModalLabel">添加产业覆盖结对帮扶</h4>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <form class="form-horizontal" id="cyfgjdbf" name="cyfgjdbf">
-                        <input type="hidden" name="uid"
-                               th:value="${poorUsers!=null and poorUsers.uid!=null}?${poorUsers.uid}: ''" id="uid"/>
-                        <div class="form-group ">
-                            <label for="enjoyIndusty" class="col-xs-3 control-label">享受产业：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" name="enjoyIndusty" id="enjoyIndusty" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="industyYear" class="col-xs-3 control-label">年度：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" name="industyYear" id="industyYear" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="earnMoney" class="col-xs-3 control-label">收益金额：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" id="earnMoney" placeholder="">
-                            </div>
-                        </div>
-
-                        <div class="form-group ">
-                            <label for="leaderName" class="col-xs-3 control-label">帮扶干部：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" name="leaderName" id="leaderName" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="organization" class="col-xs-3 control-label">所属单位：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" name="organization" id="organization" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="mobile" class="col-xs-3 control-label">联系方式：</label>
-                            <div class="col-xs-8 ">
-                                <input type="text" class="form-control input-sm duiqi" name="mobile" id="mobile" placeholder="">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-xs btn-xs btn-white" data-dismiss="modal">取 消</button>
-                <button type="button" class="btn btn-xs btn-xs btn-green">保 存</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div th:replace="admin/footer :: footer"></div>
 

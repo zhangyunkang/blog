@@ -134,6 +134,51 @@ function timestampToTime(timestamp) {
     var s = date.getSeconds();
     return Y+M+D+h+m+s;
 }
+function subFUser(status) {
+    var username = $('#fForm input[name=name]').val();
+    if (username == '') {
+        tale.alertWarn('请输入家庭成员姓名');
+        return;
+    }
+    var params = $("#fForm").serialize();
+    var url ='/admin/pooruser/insertFUser';
+    tale.post({
+        url:url,
+        data:params,
+        success: function (result) {
+            if (result && result.success) {
+                tale.alertOk({
+                    text:'贫困户家庭成员保存成功',
+                    then: function () {
+                        setTimeout(function () {
+                            window.location.href = '/admin/pooruser/'+status;
+                        }, 500);
+                    }
+                });
+            } else {
+                tale.alertError(result.msg || '保存贫困户失败');
+            }
+        }
+    });
+}
+function delFUser(fid,pid) {
+    tale.alertConfirm({
+        title:'确定删除这个家庭成员吗?',
+        then: function () {
+            tale.post({
+                url : '/admin/pooruser/deleteFUser',
+                data: {fid: fid,pid:pid},
+                success: function (result) {
+                    if(result && result.success){
+                        tale.alertOkAndReload('家庭成员删除成功');
+                    } else {
+                        tale.alertError(result.msg || '家庭成员删除失败');
+                    }
+                }
+            });
+        }
+    });
+}
 /**
  * 保存贫困户信息
  * @param status

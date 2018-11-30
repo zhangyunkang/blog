@@ -11,6 +11,7 @@ import springboot.modal.vo.FUsersVoExample;
 import springboot.modal.vo.PoorUserVo;
 import springboot.service.IFUserService;
 import springboot.service.IPoorUserService;
+import springboot.util.DateKit;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -37,7 +38,9 @@ public class FUserServiceImpl implements IFUserService{
         if (null == poorUser) {
             throw new TipException("不存在的贫困户");
         }
-        fUsersdao.insertSelective(fUsersVo);
+        int time = DateKit.getCurrentUnixTime();
+        fUsersVo.setCreated(time);
+        fUsersdao.insert(fUsersVo);
     }
     /**
      * 检查评论输入数据

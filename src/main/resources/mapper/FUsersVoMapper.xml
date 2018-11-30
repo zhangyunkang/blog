@@ -142,16 +142,16 @@
       <if test="frelation != null">
         frelation,
       </if>
-      <if test="school_info != null">
+      <if test="schoolInfo != null">
         school_info,
       </if>
-      <if test="healthy_info != null">
+      <if test="healthyInfo != null">
         healthy_info,
       </if>
-      <if test="work_ability != null">
+      <if test="workAbility != null">
         work_ability,
       </if>
-      <if test="work_info != null">
+      <if test="workInfo != null">
         work_info,
       </if>
     </trim>
