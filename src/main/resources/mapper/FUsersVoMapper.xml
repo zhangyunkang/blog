@@ -111,6 +111,10 @@
     delete from t_fusers
     where fuid = #{fuid,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByPid" parameterType="java.lang.Integer">
+    delete from t_fusers
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="springboot.modal.vo.ContentVoExample">
     delete from t_fusers
     <if test="_parameter != null">

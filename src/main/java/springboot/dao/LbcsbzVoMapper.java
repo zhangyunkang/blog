@@ -16,4 +16,5 @@ public interface LbcsbzVoMapper {
     int updateByPrimaryKeySelective(LbcsbzVo record);
     int updateByPrimaryKeyWithBLOBs(LbcsbzVo record);
     int deleteByPrimaryKey(Integer lbcsbzid);
+    int deleteByPid(Integer pid);
 }

@@ -19,10 +19,7 @@ import springboot.modal.vo.ContentVo;
 import springboot.modal.vo.ContentVoExample;
 import springboot.modal.vo.PoorUserVo;
 import springboot.modal.vo.PoorUserVoExample;
-import springboot.service.IContentService;
-import springboot.service.IMetaService;
-import springboot.service.IPoorUserService;
-import springboot.service.IRelationshipService;
+import springboot.service.*;
 import springboot.util.DateKit;
 import springboot.util.MyUtils;
 import springboot.util.RedisKeyUtil;
@@ -43,7 +40,12 @@ public class PoorUserServcieImpl implements IPoorUserService {
     private ContentVoMapper contentDao;
     @Resource
     private PoorUserVoMapper poorUserDao;
-
+    @Resource
+    private IFUserService ifUserService;
+    @Resource
+    private ILbcsbzService lbcsbzService;
+    @Resource
+    private IcyfgjdbfService cyfgjdbfService;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -110,6 +112,9 @@ public class PoorUserServcieImpl implements IPoorUserService {
         PoorUserVo poorUserVo = this.getPoorUse(cid + "");
         if (null != poorUserVo) {
             poorUserDao.deleteByPrimaryKey(cid);
+            ifUserService.deleteById(cid);
+            lbcsbzService.deleteById(cid);
+            cyfgjdbfService.deleteById(cid);
         }
     }
 

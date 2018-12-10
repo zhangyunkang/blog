@@ -87,6 +87,14 @@ public class LbcsbzServiceImpl implements ILbcsbzService {
     }
 
     @Override
+    public void deleteById(Integer pid) {
+        if (null == pid) {
+            throw new TipException("主键为空");
+        }
+        lbcsbzdao.deleteByPid(pid);
+    }
+
+    @Override
     public void update(LbcsbzVo lbcsbzVo) {
 
     }

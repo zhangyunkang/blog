@@ -50,6 +50,13 @@ public interface IFUserService {
      */
     void delete(Integer fid, Integer pid);
     /**
+     * 删除家庭成员
+     *
+     * @param pid
+     * @throws Exception
+     */
+    void deleteById(Integer pid);
+    /**
      * 更新家庭成员信息，暂时没用
      *
      * @param fuser

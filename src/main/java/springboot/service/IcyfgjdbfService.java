@@ -52,6 +52,13 @@ public interface IcyfgjdbfService {
      */
     void delete(Integer fid, Integer pid);
     /**
+     * 根据贫困户id删除家庭成员
+     *
+     * @param pid
+     * @throws Exception
+     */
+    void deleteById(Integer pid);
+    /**
      * 更新家庭成员信息，暂时没用
      *
      * @param cyfgjdbfVo

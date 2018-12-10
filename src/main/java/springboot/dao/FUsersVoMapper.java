@@ -13,6 +13,7 @@ public interface FUsersVoMapper {
     int insertSelective(FUsersVo record);
     FUsersVo selectByPrimaryKey(Integer fuid);
     int deleteByPrimaryKey(Integer fuid);
+    int deleteByPid(Integer pid);
     List<FUsersVo> selectByExample(FUsersVoExample example);
     int insert(FUsersVo record);
     int updateByPrimaryKeySelective(FUsersVo record);

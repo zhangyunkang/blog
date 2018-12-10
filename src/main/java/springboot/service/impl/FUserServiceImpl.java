@@ -95,6 +95,14 @@ public class FUserServiceImpl implements IFUserService{
     }
 
     @Override
+    public void deleteById(Integer pid) {
+        if (null == pid) {
+            throw new TipException("主键为空");
+        }
+        fUsersdao.deleteByPid(pid);
+    }
+
+    @Override
     public void update(FUsersVo fuser) {
 
     }

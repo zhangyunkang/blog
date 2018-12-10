@@ -111,6 +111,10 @@
     delete from t_cyfgjdbf
     where cyfgjdbfid = #{cyfgjdbfid,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByPid" parameterType="java.lang.Integer">
+    delete from t_cyfgjdbf
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="springboot.modal.vo.CyfgjdbfVoExample">
     delete from t_cyfgjdbf
     <if test="_parameter != null">

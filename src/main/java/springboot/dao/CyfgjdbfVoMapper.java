@@ -13,6 +13,7 @@ public interface CyfgjdbfVoMapper {
     int insertSelective(CyfgjdbfVo record);
     CyfgjdbfVo selectByPrimaryKey(Integer fuid);
     int deleteByPrimaryKey(Integer fuid);
+    int deleteByPid(Integer pid);
     List<CyfgjdbfVo> selectByExample(CyfgjdbfVoExample example);
     int insert(CyfgjdbfVo record);
     int updateByPrimaryKeySelective(CyfgjdbfVo record);

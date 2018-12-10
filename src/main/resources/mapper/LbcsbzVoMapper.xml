@@ -120,6 +120,10 @@
     delete from t_lbcsbz
     where lbcsbzid = #{lbcsbzid,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByPid" parameterType="java.lang.Integer">
+    delete from t_lbcsbz
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="springboot.modal.vo.LbcsbzVoExample">
     delete from t_lbcsbz
     <if test="_parameter != null">

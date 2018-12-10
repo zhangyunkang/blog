@@ -94,6 +94,14 @@ public class CyfgjdbfServiceImpl implements IcyfgjdbfService {
     }
 
     @Override
+    public void deleteById(Integer pid) {
+        if (null == pid) {
+            throw new TipException("主键为空");
+        }
+        cyfgjdbfdao.deleteByPid(pid);
+    }
+
+    @Override
     public void update(CyfgjdbfVo cyfgjdbfVo) {
 
     }

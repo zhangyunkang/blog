@@ -43,6 +43,13 @@ public interface ILbcsbzService {
      */
     void delete(Integer lbcsbzid, Integer pid);
     /**
+     * 两不愁三保障
+     *
+     * @param pid
+     * @throws Exception
+     */
+    void deleteById(Integer pid);
+    /**
      * 更新家庭成员信息，暂时没用
      *
      * @param lbcsbz
