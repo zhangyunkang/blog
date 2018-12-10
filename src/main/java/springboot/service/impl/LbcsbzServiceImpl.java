@@ -11,6 +11,7 @@ import springboot.modal.vo.*;
 import springboot.service.IFUserService;
 import springboot.service.ILbcsbzService;
 import springboot.service.IPoorUserService;
+import springboot.util.DateKit;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -37,6 +38,8 @@ public class LbcsbzServiceImpl implements ILbcsbzService {
         if (null == poorUser) {
             throw new TipException("不存在的贫困户");
         }
+        int time = DateKit.getCurrentUnixTime();
+        lbcsbzVo.setCreated(time);
         lbcsbzdao.insert(lbcsbzVo);
     }
     /**

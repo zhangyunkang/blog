@@ -128,7 +128,7 @@
   </delete>
   <insert id="insert" parameterType="springboot.modal.vo.LbcsbzVo" useGeneratedKeys="true" keyProperty="lbcsbzid">
     insert into t_lbcsbz ( lbcsbzid, pid, created, sortnumber, policy_type, lbcsbzyear,frelation, help_money,remark)
-    values (#{lbcsbzid,jdbcType=INTEGER},#{pid,jdbcType=INTEGER},,#{created,jdbcType=INTEGER}, #{sortNumber,jdbcType=VARCHAR}, #{policyType,jdbcType=VARCHAR},
+    values (#{lbcsbzid,jdbcType=INTEGER},#{pid,jdbcType=INTEGER},#{created,jdbcType=INTEGER}, #{sortNumber,jdbcType=VARCHAR}, #{policyType,jdbcType=VARCHAR},
     #{lbcsbzyear,jdbcType=VARCHAR}, #{frelation,jdbcType=VARCHAR}, #{helpMoney,jdbcType=VARCHAR},#{remark,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="springboot.modal.vo.ContentVo" useGeneratedKeys="true" keyProperty="cid">

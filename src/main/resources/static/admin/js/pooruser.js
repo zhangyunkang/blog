@@ -147,29 +147,22 @@ function subFUser(status) {
         data:params,
         success: function (result) {
             if (result && result.success) {
-                tale.alertOk({
-                    text:'贫困户家庭成员保存成功',
-                    then: function () {
-                        setTimeout(function () {
-                            window.location.href = '/admin/pooruser/'+status;
-                        }, 500);
-                    }
-                });
+                tale.alertOkAndReload('家庭成员添加成功');
             } else {
-                tale.alertError(result.msg || '保存贫困户失败');
+                tale.alertError(result.msg || '家庭成员添加失败');
             }
         }
     });
 }
 function delFUser(fid,pid) {
     tale.alertConfirm({
-        title:'确定删除这个家庭成员吗?',
+        title: '确定删除这个家庭成员吗?',
         then: function () {
             tale.post({
-                url : '/admin/pooruser/deleteFUser',
-                data: {fid: fid,pid:pid},
+                url: '/admin/pooruser/deleteFUser',
+                data: {fid: fid, pid: pid},
                 success: function (result) {
-                    if(result && result.success){
+                    if (result && result.success) {
                         tale.alertOkAndReload('家庭成员删除成功');
                     } else {
                         tale.alertError(result.msg || '家庭成员删除失败');
@@ -178,103 +171,183 @@ function delFUser(fid,pid) {
             });
         }
     });
+
 }
-/**
- * 保存贫困户信息
- * @param status
- */
-function subPoorUser(status) {
-    var username = $('#poorUserForm input[name=username]').val();
-    //var dateformat=timestampToTime(outpoorDate);
-     //$('#outpoorDate').val(dateformat);
-    var outpoorDate =  $('#outpoorDate').val();
-    var date = new Date(outpoorDate);
-    var time1 = Date.parse(date)/1000;
-  /*  var enjoyPolicy =  mditor.value*/;
+function sublbcsbz(status) {
+    var username = $('#lbcsbz input[name=fRelation]').val();
     if (username == '') {
-        tale.alertWarn('请输入贫困户姓名');
+        tale.alertWarn('请输入与户主关系');
         return;
     }
-   /* if (enjoyPolicy == '') {
-        tale.alertWarn('请输入享受政策');
-        return;
-    }
-    $('#enjoyPolicy-editor').val(enjoyPolicy);*/
-    $("#poorUserForm #status").val(status);
-    if(outpoorDate){
-        $("#hidOutpoorDate").val(time1);
-    }
-    var params = $("#poorUserForm").serialize();
-    var url = $('#poorUserForm #uid').val() != '' ? '/admin/pooruser/modify' : '/admin/pooruser/publish';
+    var params = $("#lbcsbz").serialize();
+    var url = '/admin/pooruser/insertlbcsbz';
     tale.post({
-        url:url,
-        data:params,
+        url: url,
+        data: params,
         success: function (result) {
             if (result && result.success) {
-                tale.alertOk({
-                    text:'贫困户保存成功',
-                    then: function () {
-                        setTimeout(function () {
-                            window.location.href = '/admin/pooruser';
-                        }, 500);
-                    }
-                });
+                tale.alertOkAndReload('两不愁三保障添加成功');
             } else {
-                tale.alertError(result.msg || '保存贫困户失败');
+                tale.alertError(result.msg || '两不愁三保障添加失败');
             }
         }
     });
 }
 
-
-function allow_comment(obj) {
-    var this_ = $(obj);
-    var on = this_.find('.toggle-on.active').length;
-    var off = this_.find('.toggle-off.active').length;
-    if (on == 1) {
-        $('#allow_comment').val(false);
+function dellbcsbz(fid, pid) {
+    tale.alertConfirm({
+        title: '确定删除这个贫困户相关两不愁三保障信息吗?',
+        then: function () {
+            tale.post({
+                url: '/admin/pooruser/deletelbcsbz',
+                data: {fid: fid, pid: pid},
+                success: function (result) {
+                    if (result && result.success) {
+                        tale.alertOkAndReload('两不愁三保障删除成功');
+                    } else {
+                        tale.alertError(result.msg || '两不愁三保障删除成功');
+                    }
+                }
+            });
+        }
+    });
+}
+function subcyfgjdbf(status) {
+    var username = $('#cyfgjdbf input[name=enjoyIndusty]').val();
+    if (username == '') {
+        tale.alertWarn('请输入享受产业');
+        return;
     }
-    if (off == 1) {
-        $('#allow_comment').val(true);
-    }
+    var params = $("#cyfgjdbf").serialize();
+    var url = '/admin/pooruser/insertcyfgjdbf';
+    tale.post({
+        url: url,
+        data: params,
+        success: function (result) {
+            if (result && result.success) {
+                tale.alertOkAndReload('产业覆盖结对帮扶添加成功');
+            } else {
+                tale.alertError(result.msg || '产业覆盖结对帮扶添加成功');
+            }
+        }
+    });
 }
 
-function allow_ping(obj) {
-    var this_ = $(obj);
-    var on = this_.find('.toggle-on.active').length;
-    var off = this_.find('.toggle-off.active').length;
-    if (on == 1) {
-        $('#allow_ping').val(false);
-    }
-    if (off == 1) {
-        $('#allow_ping').val(true);
-    }
+function delcyfgjdbf(fid, pid) {
+    tale.alertConfirm({
+        title: '确定删除这个贫困户相关产业覆盖结对帮扶吗?',
+        then: function () {
+            tale.post({
+                url: '/admin/pooruser/deletecyfgjdbf',
+                data: {fid: fid, pid: pid},
+                success: function (result) {
+                    if (result && result.success) {
+                        tale.alertOkAndReload('产业覆盖结对帮扶删除成功');
+                    } else {
+                        tale.alertError(result.msg || '产业覆盖结对帮扶删除成功');
+                    }
+                }
+            });
+        }
+    });
 }
+    /**
+     * 保存贫困户信息
+     * @param status
+     */
+    function subPoorUser(status) {
+        var username = $('#poorUserForm input[name=username]').val();
+        //var dateformat=timestampToTime(outpoorDate);
+        //$('#outpoorDate').val(dateformat);
+        var outpoorDate = $('#outpoorDate').val();
+        var date = new Date(outpoorDate);
+        var time1 = Date.parse(date) / 1000;
+        /*  var enjoyPolicy =  mditor.value*/
+        ;
+        if (username == '') {
+            tale.alertWarn('请输入贫困户姓名');
+            return;
+        }
+        /* if (enjoyPolicy == '') {
+         tale.alertWarn('请输入享受政策');
+         return;
+         }
+         $('#enjoyPolicy-editor').val(enjoyPolicy);*/
+        $("#poorUserForm #status").val(status);
+        if (outpoorDate) {
+            $("#hidOutpoorDate").val(time1);
+        }
+        var params = $("#poorUserForm").serialize();
+        var url = $('#poorUserForm #uid').val() != '' ? '/admin/pooruser/modify' : '/admin/pooruser/publish';
+        tale.post({
+            url: url,
+            data: params,
+            success: function (result) {
+                if (result && result.success) {
+                    tale.alertOk({
+                        text: '贫困户保存成功',
+                        then: function () {
+                            setTimeout(function () {
+                                window.location.href = '/admin/pooruser';
+                            }, 500);
+                        }
+                    });
+                } else {
+                    tale.alertError(result.msg || '保存贫困户失败');
+                }
+            }
+        });
+    }
 
 
-function allow_feed(obj) {
-    var this_ = $(obj);
-    var on = this_.find('.toggle-on.active').length;
-    var off = this_.find('.toggle-off.active').length;
-    if (on == 1) {
-        $('#allow_feed').val(false);
+    function allow_comment(obj) {
+        var this_ = $(obj);
+        var on = this_.find('.toggle-on.active').length;
+        var off = this_.find('.toggle-off.active').length;
+        if (on == 1) {
+            $('#allow_comment').val(false);
+        }
+        if (off == 1) {
+            $('#allow_comment').val(true);
+        }
     }
-    if (off == 1) {
-        $('#allow_feed').val(true);
-    }
-}
 
-function add_thumbimg(obj) {
-    var this_ = $(obj);
-    var on = this_.attr('on');
-    console.log(on);
-    if (on == 'true') {
-        this_.attr('on', 'false');
-        $('#dropzone-container').addClass('hide');
-        $('#thumbImg').val('');
-    } else {
-        this_.attr('on', 'true');
-        $('#dropzone-container').removeClass('hide');
-        $('#dropzone-container').show();
+    function allow_ping(obj) {
+        var this_ = $(obj);
+        var on = this_.find('.toggle-on.active').length;
+        var off = this_.find('.toggle-off.active').length;
+        if (on == 1) {
+            $('#allow_ping').val(false);
+        }
+        if (off == 1) {
+            $('#allow_ping').val(true);
+        }
     }
-}
+
+
+    function allow_feed(obj) {
+        var this_ = $(obj);
+        var on = this_.find('.toggle-on.active').length;
+        var off = this_.find('.toggle-off.active').length;
+        if (on == 1) {
+            $('#allow_feed').val(false);
+        }
+        if (off == 1) {
+            $('#allow_feed').val(true);
+        }
+    }
+
+    function add_thumbimg(obj) {
+        var this_ = $(obj);
+        var on = this_.attr('on');
+        console.log(on);
+        if (on == 'true') {
+            this_.attr('on', 'false');
+            $('#dropzone-container').addClass('hide');
+            $('#thumbImg').val('');
+        } else {
+            this_.attr('on', 'true');
+            $('#dropzone-container').removeClass('hide');
+            $('#dropzone-container').show();
+        }
+    }

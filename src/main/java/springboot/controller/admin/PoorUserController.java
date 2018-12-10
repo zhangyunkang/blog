@@ -160,6 +160,56 @@ public class PoorUserController extends AbstractController {
         }
         return RestResponseBo.ok();
     }
+    @PostMapping(value = "insertlbcsbz")
+    @ResponseBody
+    @Transactional(rollbackFor = TipException.class)
+    public RestResponseBo insertlbcsbz(LbcsbzVo lbcsbzVo, HttpServletRequest request) {
+        try {
+            lbcsbzService.insertLbcsbz(lbcsbzVo);
+        } catch (Exception e) {
+            String msg = "添加两不愁三保障失败";
+            return ExceptionHelper.handlerException(logger, msg, e);
+        }
+        return RestResponseBo.ok();
+    }
+    @RequestMapping(value = "deletelbcsbz")
+    @ResponseBody
+    @Transactional(rollbackFor = TipException.class)
+    public RestResponseBo deletelbcsbz(@RequestParam int fid,@RequestParam int pid, HttpServletRequest request) {
+        try {
+            lbcsbzService.delete(fid,pid);
+            logService.insertLog(LogActions.DEL_FUSER.getAction(), fid + "", request.getRemoteAddr(), this.getUid(request));
+        } catch (Exception e) {
+            String msg = "贫困户两不愁三保障删除失败";
+            return ExceptionHelper.handlerException(logger, msg, e);
+        }
+        return RestResponseBo.ok();
+    }
+    @PostMapping(value = "insertcyfgjdbf")
+    @ResponseBody
+    @Transactional(rollbackFor = TipException.class)
+    public RestResponseBo insertcyfgjdbf(CyfgjdbfVo cyfgjdbfVo, HttpServletRequest request) {
+        try {
+            cyfgjdbfService.insertCyfgjdbf(cyfgjdbfVo);
+        } catch (Exception e) {
+            String msg = "添加产业覆盖结对帮扶失败";
+            return ExceptionHelper.handlerException(logger, msg, e);
+        }
+        return RestResponseBo.ok();
+    }
+    @RequestMapping(value = "deletecyfgjdbf")
+    @ResponseBody
+    @Transactional(rollbackFor = TipException.class)
+    public RestResponseBo deletecyfgjdbf(@RequestParam int fid,@RequestParam int pid, HttpServletRequest request) {
+        try {
+            cyfgjdbfService.delete(fid,pid);
+            logService.insertLog(LogActions.DEL_FUSER.getAction(), fid + "", request.getRemoteAddr(), this.getUid(request));
+        } catch (Exception e) {
+            String msg = "贫困户产业覆盖结对帮扶删除失败";
+            return ExceptionHelper.handlerException(logger, msg, e);
+        }
+        return RestResponseBo.ok();
+    }
     @PostMapping(value = "modify")
     @ResponseBody
     @Transactional(rollbackFor = TipException.class)

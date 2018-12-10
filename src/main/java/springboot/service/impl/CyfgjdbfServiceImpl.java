@@ -10,6 +10,7 @@ import springboot.exception.TipException;
 import springboot.modal.vo.*;
 import springboot.service.IPoorUserService;
 import springboot.service.IcyfgjdbfService;
+import springboot.util.DateKit;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -36,7 +37,9 @@ public class CyfgjdbfServiceImpl implements IcyfgjdbfService {
         if (null == poorUser) {
             throw new TipException("不存在的贫困户");
         }
-        cyfgjdbfdao.insertSelective(cyfgjdbfVo);
+        int time = DateKit.getCurrentUnixTime();
+        cyfgjdbfVo.setCreated(time);
+        cyfgjdbfdao.insert(cyfgjdbfVo);
     }
     /**
      * 检查评论输入数据
