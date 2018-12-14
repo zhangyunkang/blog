@@ -6,53 +6,227 @@
     <script th:src="@{/jantent/assets/js/jquery.qrcode.js}"></script>
     <script th:src="@{/jantent/assets/js/jquery.jqprint-0.3.js}"></script>
     <link rel="stylesheet" th:href="@{/jantent/assets/css/pooruser.css}"/>
+    <link th:href="@{/jantent/assets/css/bootstrap.min.css}" rel="stylesheet"/>
 </head>
 <div th:replace="themes/jantent/header::header(${poorUser.username},null)"></div>
 <body>
-<article class="main-content post-page" id="bodyolny">
+<article class="main-content">
     <div class="section-block about-block">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-4">
-                    <ul class="info-list">
-                        <li>
-                            <strong>姓名:</strong>
-                            <span><th:block th:text="${poorUser.username}"/></span>
-                        </li>
-                        <li>
-                            <strong>扶贫原因:</strong>
-                            <span><th:block th:text="${poorUser.poorReason}"/></span>
-                        </li>
-                        <li>
-                            <strong>年龄:</strong>
-                            <span><th:block th:text="${poorUser.age}"/></span>
-                        </li>
-                        <li>
-                            <strong>身份证号:</strong>
-                            <span><th:block th:text="${poorUser.idNumber}"/></span>
-                        </li>
-                        <li>
-                            <strong>联系方式:</strong>
-                            <span><th:block th:text="${poorUser.mobilePhone}"/></span>
-                        </li>
-                        <li>
-                            <strong>脱贫时间:</strong>
-                            <span> <time th:datetime="${commons.fmtdate(poorUser.outpoorDate)}" itemprop="datePublished" th:text=" ${commons.fmtdate(poorUser.outpoorDate)}"></time></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-8">
-                    <strong>享受政策:</strong>
-                    <div class="about-text">
-                        <th:block th:utext="${commons.article(poorUser.enjoyPolicy)}"/>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <h4 class="page-title" style="text-align: center">
+                                贫困户基本信息
+                            </h4>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group1 col-md-4" style="padding: 0 10px 0 0;">
+                                <label>户主姓名：</label>
+                                <th:block th:text="${poorUser.username}"/>
+                            </div>
+                            <div class="form-group1 col-md-4" style="padding: 0 10px 0 0;">
+                                <label>致贫原因：</label>
+                                <th:block th:text="${poorUser.poorReason}"/>
+                            </div>
+                            <div class="form-group1 col-md-4" style="padding: 0 10px 0 0;">
+                                <label>脱贫时间：</label>
+                                <th:block th:text="${commons.fmtdate(poorUser.outpoorDate, 'yyyy-MM-dd')}"/>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group1 col-md-4" style="padding: 0 10px 0 0;">
+                                <label>身份证号：</label>
+                                <th:block th:text="${poorUser.idNumber}"/>
+                            </div>
+                            <div class="form-group1 col-md-4" style="padding: 0 10px 0 0;">
+                                <label>家庭人口数：</label>
+                                <th:block th:text="${poorUser.age}"/>
+                            </div>
+                            <div class="form-group1 col-md-4" style="padding: 0 10px 0 0;">
+                                <label>贫困户属性：</label>
+                                <th:block th:text="${poorUser.email}"/>
+                            </div>
+                        </div>
                     </div>
+                    <th:block th:if="${null != poorUser}">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <h4 class="page-title" style="text-align: center">
+                                    家庭成员信息
+                                </h4>
+                            </div>
+                            <div class="col-md-12">
+                            <table class="table1 table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        姓名
+                                    </th>
+                                    <th>
+                                        户主关系
+                                    </th>
+                                    <th>
+                                        在校情况
+                                    </th>
+                                    <th>
+                                        身体健康状况
+                                    </th>
+                                    <th>
+                                        有无劳动力
+                                    </th>
+                                    <th>
+                                        务工情况
+                                    </th>
+
+                                </tr>
+                                </thead>
+                                <div th:if="${fusers}">
+                                    <tbody>
+                                    <th:block th:each="fuser :${fusers.list}">
+                                        <tr>
+                                            <td>
+                                                <th:block th:text="${fuser.name}"/>
+                                            </td>
+                                            <td>
+                                                <th:block th:text="${fuser.frelation}"/>
+                                            </td>
+                                            <td>
+                                                <th:block th:text="${fuser.schoolInfo}"/>
+                                            </td>
+                                            <td>
+                                                <th:block th:text="${fuser.healthyInfo}"/>
+
+                                            </td>
+                                            <td>
+                                                <th:block th:text="${fuser.workAbility}"/>
+
+                                            </td>
+                                            <td>
+                                                <th:block th:text="${fuser.workInfo}"/>
+                                            </td>
+
+                                        </tr>
+                                    </th:block>
+                                    <tr>
+                                        <td>备注：</td>
+                                        <td colspan="5">
+                                            <th:block th:text="${poorUser.fRemark}"/>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </div>
+                            </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <h4 class="page-title" style="text-align: center">
+                                    两不愁三保障
+                                </h4>
+                            </div>
+                            <table class="table table-striped table2">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        序号
+                                    </th>
+                                    <th>
+                                        享受政策类型
+                                    </th>
+                                    <th>
+                                        年度
+                                    </th>
+                                    <th>
+                                        与户主关系
+                                    </th>
+                                    <th>
+                                        救助金额
+                                    </th>
+                                    <th>
+                                        备注
+                                    </th>
+
+                                </tr>
+                                </thead>
+                                <div th:if="${lbcsbzs}">
+                                    <tbody>
+                                    <th:block th:each="lbcsbz :${lbcsbzs.list}">
+                                        <tr>
+                                            <td class="py-1" th:text="${lbcsbz.sortNumber}"></td>
+                                            <td class="py-1" th:text="${lbcsbz.policyType}"></td>
+                                            <td class="py-1" th:text="${lbcsbz.lbcsbzyear}"></td>
+                                            <td class="py-1" th:text="${lbcsbz.frelation}"></td>
+                                            <td class="py-1" th:text="${lbcsbz.helpMoney}"></td>
+                                            <td class="py-1" th:text="${lbcsbz.remark}"></td>
+
+                                        </tr>
+                                    </th:block>
+                                    <tr>
+                                        <td>备注：</td>
+                                        <td colspan="5" th:text="${poorUser.lbcsbzRemark}"></td>
+                                    </tr>
+                                    </tbody>
+                                </div>
+                            </table>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-striped table1">
+                                <thead>
+                                <tr>
+                                    <th colspan="3" style="text-align: center">产业覆盖</th>
+                                    <th colspan="3" style="text-align: center">结对帮扶</th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        所享受产业
+                                    </th>
+                                    <th>
+                                        年度
+                                    </th>
+                                    <th>
+                                        收益金额
+                                    </th>
+                                    <th>
+                                        帮扶干部姓名
+                                    </th>
+                                    <th>
+                                        所属单位
+                                    </th>
+                                    <th>
+                                        联系方式
+                                    </th>
+
+                                </tr>
+                                </thead>
+                                <div th:if="${cyfgjdbfs}">
+                                    <tbody>
+                                    <th:block th:each="cyfgjdbf :${cyfgjdbfs.list}">
+                                        <tr>
+                                            <td class="py-1" th:text="${cyfgjdbf.enjoyIndusty}"></td>
+                                            <td class="py-1" th:text="${cyfgjdbf.industyYear}"></td>
+                                            <td class="py-1" th:text="${cyfgjdbf.earnMoney}"></td>
+                                            <td class="py-1" th:text="${cyfgjdbf.leaderName}"></td>
+                                            <td class="py-1" th:text="${cyfgjdbf.organization}"></td>
+                                            <td class="py-1" th:text="${cyfgjdbf.mobile}"></td>
+
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </div>
+                            </table>
+                        </div>
+
+                    </th:block>
+                    <div class="clearfix"></div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
-            <div class="row" style="width:100%;height: 300px;">
-                <div class="col-md-12" style="float: right">
-
+            <div class="row" style="width:100%;height: 300px;text-align: center;" id="post-content">
+                <div class="col-md-12 erwm">
                     <div id="divOne"></div>
-                    <img id='imgOne' />
+                    <img id='imgOne'/>
                 </div>
             </div>
         </div>
@@ -61,23 +235,16 @@
     <script>
         //默认使用Canvas生成，并显示到图片
         var url = window.location.href
-        url=url.substring(0,url.lastIndexOf("/"));
-        var qrcode=$("#divOne").qrcode({
-            render:'canvas',
+        url = url.substring(0, url.lastIndexOf("/"));
+        var qrcode = $("#divOne").qrcode({
+            render: 'canvas',
             width: 200, //宽度
-            height:200, //高度
+            height: 200, //高度
             text: url //任意内容
         }).hide();
-        var canvas=qrcode.find('canvas').get(0);
-        $('#imgOne').attr('src',canvas.toDataURL('image/jpg'));
-        function print(){
-            $("#bodyolny").jqprint({
-                debug:false,
-                importCSS:true,
-                printContainer:true,
-                operaSupport:false
-            });
-        }
+        var canvas = qrcode.find('canvas').get(0);
+        $('#imgOne').attr('src', canvas.toDataURL('image/jpg'));
+
     </script>
 </article>
 <div th:replace="themes/jantent/footer::footer"></div>

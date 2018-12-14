@@ -18,10 +18,7 @@ import springboot.exception.TipException;
 import springboot.modal.bo.ArchiveBo;
 import springboot.modal.bo.CommentBo;
 import springboot.modal.bo.RestResponseBo;
-import springboot.modal.vo.CommentVo;
-import springboot.modal.vo.ContentVo;
-import springboot.modal.vo.MetaVo;
-import springboot.modal.vo.PoorUserVo;
+import springboot.modal.vo.*;
 import springboot.service.*;
 import springboot.util.IpUtil;
 import springboot.util.MyUtils;
@@ -59,6 +56,12 @@ public class IndexController extends AbstractController {
     private ISiteService siteService;
     @Resource
     private IPoorUserService poorUserService;
+    @Resource
+    private IFUserService ifUserService;
+    @Resource
+    private ILbcsbzService lbcsbzService;
+    @Resource
+    private IcyfgjdbfService cyfgjdbfService;
 
     /**
      * 博客首页
@@ -127,7 +130,55 @@ public class IndexController extends AbstractController {
         }
         request.setAttribute("poorUser", poorUserVo);
         request.setAttribute("is_post", true);
+        completeFUsers(request, poorUserVo);
+        completeLbcsbz(request, poorUserVo);
+        completeCyfgjdbf(request, poorUserVo);
         return this.render("pooruser");
+    }
+    /**
+     * 查询贫困户的家庭成员信息，并补充到里面，返回前端
+     *
+     * @param request
+     * @param poorUser
+     */
+    private void completeCyfgjdbf(HttpServletRequest request, PoorUserVo poorUser) {
+        String cp = request.getParameter("cp");
+        if (StringUtils.isBlank(cp)) {
+            cp = "1";
+        }
+        request.setAttribute("cp", cp);
+        PageInfo<CyfgjdbfVo> cyfgjdbfPaginator = cyfgjdbfService.getCyfgjdbfs(poorUser.getUid(), Integer.parseInt(cp), 8);
+        request.setAttribute("cyfgjdbfs", cyfgjdbfPaginator);
+    }
+    /**
+     * 查询贫困户的家庭成员信息，并补充到里面，返回前端
+     *
+     * @param request
+     * @param poorUser
+     */
+    private void completeFUsers(HttpServletRequest request, PoorUserVo poorUser) {
+        String cp = request.getParameter("cp");
+        if (StringUtils.isBlank(cp)) {
+            cp = "1";
+        }
+        request.setAttribute("cp", cp);
+        PageInfo<FUsersVo> fuserPaginator = ifUserService.getFUsers(poorUser.getUid(), Integer.parseInt(cp), 8);
+        request.setAttribute("fusers", fuserPaginator);
+    }
+    /**
+     * 查询贫困户的两不愁三保障信息，并补充到里面，返回前端
+     *
+     * @param request
+     * @param poorUser
+     */
+    private void completeLbcsbz(HttpServletRequest request, PoorUserVo poorUser) {
+        String cp = request.getParameter("cp");
+        if (StringUtils.isBlank(cp)) {
+            cp = "1";
+        }
+        request.setAttribute("cp", cp);
+        PageInfo<LbcsbzVo> lbcsbzsPaginator = lbcsbzService.getLbcsbzs(poorUser.getUid(), Integer.parseInt(cp), 8);
+        request.setAttribute("lbcsbzs", lbcsbzsPaginator);
     }
     /**
      * 贫困户内容页（预览)
@@ -143,6 +194,9 @@ public class IndexController extends AbstractController {
         }
         request.setAttribute("poorUser", poorUserVo);
         request.setAttribute("is_post", true);
+        completeFUsers(request, poorUserVo);
+        completeLbcsbz(request, poorUserVo);
+        completeCyfgjdbf(request, poorUserVo);
         return this.render("prepooruser");
     }
     /**
